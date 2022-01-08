@@ -1,13 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function App() {
+export default class App extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      reandomColor: null
+    }
+  }
+
+  getRandomColor = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    "rgb(" +
+    Math.floor((Math.random() * 256)) +
+    "," +
+    Math.floor((Math.random() * 256)) +
+    "," +
+    Math.floor((Math.random() * 256)) +
+    ")"
+  )
+  }
+
+  myButtonPressed = () => {
+    this.setState({ reandomColor: this.getRandomColor() })
+  }
+
+  render() {
+    return (
+      <View
+        style={
+          [styles.container,
+            { backgroundColor: this.state.reandomColor }
+          ]
+        }>
+        <TouchableOpacity
+        onPress={this.myButtonPressed}>
+          <Text style={styles.text}>Change Color</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +50,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: 25,
+    backgroundColor: "#120E43",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    color: "white",
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "white"
+  }
 });
